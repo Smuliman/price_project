@@ -23,13 +23,14 @@ app.get("/commodites", function (req, res) {
   var hinta = "";
 
   new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
-    .call("price", "get", { name: "bitcoin", currency: "USD" })
+    .call("price", "get", { name: "coffee", currency: "USD" })
     .then((response) => {
       hinta = response;
-      console.log(response);
-      //res.send(JSON.stringify(response));
+
+      //res.send(JSON.stringify(hinta));
+      res.render("pages/commodites", hinta);
     });
-  app.render("pages/commodites", hinta);
+  console.log(hinta);
 });
 app.get("/oil", function (req, res) {
   res.send("Oil prices are high!");
