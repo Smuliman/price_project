@@ -19,17 +19,16 @@ app.get("/hello", function (req, res) {
       res.send("Hello World!" + JSON.stringify(response));
     });
 });
-app.get("/coffee", function (req, res) {
+app.get("/food", function (req, res) {
   const m3o = require("@m3o/m3o-node");
-  var hinta = "";
+  var list = "";
 
   new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
-    .call("price", "get", { name: "coffee", currency: "EUR" })
+    .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
     .then((response) => {
-      hinta = response;
+      list = response;
 
-      //res.send(JSON.stringify(hinta));
-      res.render("pages/coffee", hinta);
+      res.render("pages/food", list);
     });
   //console.log(hinta);
 });
@@ -46,6 +45,20 @@ app.get("/oil", function (req, res) {
       res.render("pages/oil", hinta);
     });
   //console.log(hinta);
+});
+app.get("/crypto", function (req, res) {
+  const m3o = require("@m3o/m3o-node");
+  var list = "";
+
+  new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
+    .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
+    .then((response) => {
+      list = response;
+      console.log(list);
+
+      //res.send(JSON.stringify(hinta));
+      res.render("pages/crypto", list);
+    });
 });
 app.get("*", function (req, res) {
   res.send("Can't find the requested page!", 404);

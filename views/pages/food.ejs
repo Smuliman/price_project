@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <%- include('../partials/head'); %>
+        
+    </head>
+    <body>
+        <%- include('../partials/navbar'); %>
+        <%- include('../partials/jumbotron'); %>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-6">
+                <h3>Food prices right now:</h3>
+                <table class="table">
+                  <% values.forEach(function(values){ %>
+                     <% if (values.name == "Coffee" || values.name == "Soybeans" || values.name == "Rice"|| values.name == "Sugar"|| values.name == "Wheat") { %>
+                      <tr>
+                        <td><%= values.name %></td>
+                        <td><%= values.price.toFixed(2) %>€</td>
+                      </tr>
+                     <% } %>
+                 <% })%>
+              </table>
+            </div>
+            <div class="col-sm-2"></div>
+          </div> 
+         
+            <%- include('../partials/footer'); %>
+     
+    </body>
+</html>
