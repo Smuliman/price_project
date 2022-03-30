@@ -1,4 +1,4 @@
-Heroku link:
+Heroku link: https://pricesprices.herokuapp.com/
 Github link: https://github.com/Smuliman/price_project
 
 TASK:
