@@ -7,7 +7,7 @@ app.set("view engine", "ejs");
 
 //luodaan reitit
 app.get("/", function (req, res) {
-  res.send("Hello World!");
+  res.render("pages/index");
 });
 app.get("/hello", function (req, res) {
   const m3o = require("@m3o/m3o-node");
@@ -19,22 +19,33 @@ app.get("/hello", function (req, res) {
       res.send("Hello World!" + JSON.stringify(response));
     });
 });
-app.get("/commodites", function (req, res) {
+app.get("/coffee", function (req, res) {
   const m3o = require("@m3o/m3o-node");
   var hinta = "";
 
   new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
-    .call("price", "get", { name: "coffee", currency: "USD" })
+    .call("price", "get", { name: "coffee", currency: "EUR" })
     .then((response) => {
       hinta = response;
 
       //res.send(JSON.stringify(hinta));
-      res.render("pages/commodites", hinta);
+      res.render("pages/coffee", hinta);
     });
-  console.log(hinta);
+  //console.log(hinta);
 });
 app.get("/oil", function (req, res) {
-  res.send("Oil prices are high!");
+  const m3o = require("@m3o/m3o-node");
+  var hinta = "";
+
+  new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
+    .call("price", "get", { name: "WTI crude oil", currency: "EUR" })
+    .then((response) => {
+      hinta = response;
+
+      //res.send(JSON.stringify(hinta));
+      res.render("pages/oil", hinta);
+    });
+  //console.log(hinta);
 });
 app.get("*", function (req, res) {
   res.send("Can't find the requested page!", 404);
