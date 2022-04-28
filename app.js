@@ -10,43 +10,13 @@ app.set("view engine", "ejs");
 app.get("/", function (req, res) {
   res.render("pages/index");
 });
-app.get("/hello", function (req, res) {
-  const m3o = require("@m3o/m3o-node");
 
-  new m3o.Client({
-    token: m3o_token,
-  })
-    .call("helloworld", "call", { name: "Samuli" })
-    .then((response) => {
-      console.log(response);
-      res.send("Hello World!" + JSON.stringify(response));
-    });
-});
-app.get("/test", function (req, res) {
-  const { PriceService } = require("m3o/price");
-
-  const priceService1 = new PriceService(
-    process.env.YTk2ZjE1MTAtODI1Yi00ZmU3LWI5NWEtNDhmYTkzZjcyZGIy
-  );
-
-  // Get the price of anything
-  async function getThePrice() {
-    const rsp = await priceService1.get({
-      currency: "USD",
-      name: "bitcoin",
-    });
-    console.log(rsp);
-    res.send(rsp);
-  }
-
-  getThePrice();
-});
 app.get("/food", function (req, res) {
   const m3o = require("@m3o/m3o-node");
   var list = "";
   try {
     new m3o.Client({
-      token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh",
+      token: "NGMyZWYyMzAtMzRmMy00MjkyLTk2YmQtNGQzOWM1YzNiYjAx",
     })
 
       .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
@@ -58,16 +28,13 @@ app.get("/food", function (req, res) {
   } catch (error) {
     res.send("virhe");
     console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
   }
-  //console.log(hinta);
 });
 app.get("/oil", function (req, res) {
   const m3o = require("@m3o/m3o-node");
   var hinta = "";
 
-  new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
+  new m3o.Client({ token: "NGMyZWYyMzAtMzRmMy00MjkyLTk2YmQtNGQzOWM1YzNiYjAx" })
     .call("price", "get", { name: "WTI crude oil", currency: "EUR" })
     .then((response) => {
       hinta = response;
@@ -81,7 +48,7 @@ app.get("/crypto", function (req, res) {
   const m3o = require("@m3o/m3o-node");
   var list = "";
 
-  new m3o.Client({ token: "MTk3ZTNkZmEtNjExOS00MjBkLThkNDktNWI2OGE0YTVkYTZh" })
+  new m3o.Client({ token: "NGMyZWYyMzAtMzRmMy00MjkyLTk2YmQtNGQzOWM1YzNiYjAx" })
     .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
     .then((response) => {
       list = response;
