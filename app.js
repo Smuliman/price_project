@@ -1,4 +1,6 @@
 var express = require("express");
+const m3o = require("@m3o/m3o-node");
+const { PriceService } = require("m3o/price");
 var app = express();
 const port = process.env.PORT || 3000;
 M3O_API_TOKEN = "NGMyZWYyMzAtMzRmMy00MjkyLTk2YmQtNGQzOWM1YzNiYjAx";
@@ -11,8 +13,6 @@ app.get("/", function (req, res) {
 });
 
 app.get("/food", function (req, res) {
-  //kutsutaan m3o moduuli
-  const m3o = require("@m3o/m3o-node");
   //lisätään list muuttuja
   let list = "";
   //luodaan m3o luokasta uusi olio
@@ -21,14 +21,13 @@ app.get("/food", function (req, res) {
     .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
     //käsitellään api vastaus
     .then((response) => {
-      // kopioidaan vastaus list muuttujaan
+      // kopioidaan api vastaus list muuttujaan
       list = response;
       // renderöidään list muutujan tiedon food pagelle
       res.render("pages/food", list);
     });
 });
 app.get("/oil", function (req, res) {
-  const m3o = require("@m3o/m3o-node");
   var hinta = "";
   new m3o.Client({ token: M3O_API_TOKEN })
     .call("price", "get", { name: "WTI crude oil", currency: "EUR" })
@@ -38,7 +37,6 @@ app.get("/oil", function (req, res) {
     });
 });
 app.get("/crypto", function (req, res) {
-  const m3o = require("@m3o/m3o-node");
   var list = "";
   new m3o.Client({ token: M3O_API_TOKEN })
     .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
@@ -50,7 +48,6 @@ app.get("/crypto", function (req, res) {
 
 //tässä on testi reitti funktion sisälle tehtyyn api kutsuun. Näin tehtynä olisi helpompi paketoida koodia funktioon reitin ulkopuolelle jatkossa
 app.get("/test", function (req, res) {
-  const { PriceService } = require("m3o/price");
   const priceService = new PriceService(M3O_API_TOKEN);
   rsp = "";
   // Get the price of anything
