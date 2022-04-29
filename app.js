@@ -11,12 +11,19 @@ app.get("/", function (req, res) {
 });
 
 app.get("/food", function (req, res) {
+  //kutsutaan m3o moduuli
   const m3o = require("@m3o/m3o-node");
-  var list = "";
+  //lisätään list muuttuja
+  let list = "";
+  //luodaan m3o luokasta uusi olio
   new m3o.Client({ token: M3O_API_TOKEN })
+    //api kutsu
     .call("price", "list", { currency: "EUR", limit: 200, offset: 0 })
+    //käsitellään api vastaus
     .then((response) => {
+      // kopioidaan vastaus list muuttujaan
       list = response;
+      // renderöidään list muutujan tiedon food pagelle
       res.render("pages/food", list);
     });
 });
